@@ -72,21 +72,22 @@ while True:
 
 #Output path after reaching end
 serial.write_line("Maze path taken:")
-    for step in path:
-        if step == 1:
-            serial.write_line("Forward")
-        elif step == 2:
-            serial.write_line("Left")
-        elif step == 3:
-            serial.write_line("Right")
-        elif step == 0:
-            serial.write_line("Backtrack")
+for step in path:
+    if step == 1:
+        serial.write_line("Forward")
+    elif step == 2:
+        serial.write_line("Left")
+    elif step == 3:
+        serial.write_line("Right")
+    elif step == 0:
+        serial.write_line("Backtrack")
 
 # Simulates data from a second micro:bit
 def on_button_pressed_a():
-    for i in range (length(path)):
-    radio.send_value("Directions to the maze", path[i])
-input.on_button_pressed(Button.A, on_button_pressed_a)
+    for i in range (len(path)):
+        radio.send_value("Directions to the maze")
+        radio.send_value(path[i])
+        input.on_button_pressed(Button.A, on_button_pressed_a)
 
 radio.set_group(1)
 

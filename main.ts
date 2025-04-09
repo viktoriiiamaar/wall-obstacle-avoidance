@@ -21,7 +21,7 @@ function turn_right() {
 }
 
 function move_forward() {
-    CutebotPro.distanceRunning(CutebotProOrientation.Advance, 25, CutebotProDistanceUnits.Cm)
+    CutebotPro.distanceRunning(CutebotProOrientation.Advance, 30, CutebotProDistanceUnits.Cm)
     basic.pause(100)
 }
 
@@ -76,19 +76,21 @@ while (true) {
     
 }
 // Output path after reaching end
-if (input.buttonIsPressed(Button.A) == true) {
-    serial.writeLine("Maze path taken:")
-    for (let step of path) {
-        if (step == 1) {
-            serial.writeLine("Forward")
-        } else if (step == 2) {
-            serial.writeLine("Left")
-        } else if (step == 3) {
-            serial.writeLine("Right")
-        } else if (step == 0) {
-            serial.writeLine("Backtrack")
-        }
-        
+serial.writeLine("Maze path taken:")
+for (let step of path) {
+    if (step == 1) {
+        serial.writeLine("Forward")
+    } else if (step == 2) {
+        serial.writeLine("Left")
+    } else if (step == 3) {
+        serial.writeLine("Right")
+    } else if (step == 0) {
+        serial.writeLine("Backtrack")
     }
+    
 }
-
+//  Simulates data from a second micro:bit
+radio.setGroup(1)
+loops.everyInterval(60000, function on_every_interval() {
+    radio.sendValue("t1", input.temperature())
+})
